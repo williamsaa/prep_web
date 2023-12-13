@@ -1,0 +1,414 @@
+{% extends 'base_auth.html' %}
+{% block content %}
+<style>
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .label {
+    width: 150px; /* Adjust the width as needed */
+    padding-right: 10px;
+    text-align: right;
+  }
+
+  .input {
+    flex: 1;
+    padding: 5px;
+  }
+
+  .submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+</style>
+<form action="" method=POST>
+    {% csrf_token %}
+      <title>Login Form</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <style>
+        .side-tab {
+          background-image: url('path_to_your_image.jpg');
+          background-size: cover;
+          height: 100vh;
+        }
+    
+        .login-form {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container-fluid">
+       
+       
+         </div>
+        <div class="row">
+          <div class="col-md-4 side-tab"></div>
+          <div class="col-md-5 login-form">
+            <div class="alert alert-success">
+                <h2>Jamaica PrEP Services </h2> 
+              </div>
+            <hr>
+            <h2>Login</h2>
+<hr>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                   {% if messages %}
+                       {% for message in messages %}
+                       <div class="alert alert-danger">
+                           {{ message }}
+                       </div>
+                       {% endfor %}
+                   {% endif %}
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+           
+            <div class="form-group input-container">
+              <label class="label" for="username"><b>Username</b></label>
+              <input type="text" class="form-control" name="username">
+            </div>
+            
+            <div class="form-group input-container">
+              <label class="label" for="password"><b>Password</b></label>
+              <input type="password" class="form-control" name="password">
+            </div>
+            
+            <div class="form-group input-container">
+              <label class="label" for="id_facility"><b>Facility</b><span class="required">*</span></label>
+              <select name="facility" class="form-control" required id="id_facility">
+                <option value="" selected>-- select your facility --</option>
+                <option value="8">AIDS Healthcare Foundation - Hagley Park</option>
+                <option value="1">Alexandria Health Center</option>
+                <option value="2">Annotto Bay Health Center</option>
+
+<option value="9">Bellevue Hospital</option>
+
+<option value="67">Black River Antenatal</option>
+
+<option value="39">Black River Health Centre</option>
+
+<option value="81">Black River Paediatrics</option>
+
+<option value="10">Bustamante Hospital - Paediatric</option>
+
+<option value="40">Chapelton Health Centre</option>
+
+<option value="11">CHARES</option>
+
+<option value="12">Comprehensive Clinic - Adults</option>
+
+<option value="13">Comprehensive Clinic - Paediatric</option>
+
+<option value="45">Cornwall Regional Hospital</option>
+
+<option value="46">Cornwall Regional Hospital - Paediatric</option>
+
+<option value="108">Dr. Adion Sutherland -Medical Centre</option>
+
+<option value="117">Dr. Alex Tracey - Online Medics</option>
+
+<option value="85">Dr. Alicia Bahadur -Medical Centre</option>
+
+<option value="113">Dr. Alliance International Medical Limited - Drax Hall - St. Ann</option>
+
+<option value="72">Dr. Andrea Purai -Medical Centre</option>
+
+<option value="157">Dr. Ashley Wright - Private</option>
+
+<option value="82">Dr. Audley McConnell -Medical Centre</option>
+
+<option value="155">Dr. Banjuke -Private</option>
+
+<option value="153">Dr. Barnes -Private</option>
+
+<option value="92">Dr. Brendan Bain -Medical Centre</option>
+
+<option value="122">Dr. Camille Campbell -Medical Centre</option>
+
+<option value="118">Dr. Chanelle Reid -Medical Centre (Online)</option>
+
+<option value="100">Dr. Charmaine Thomas -Medical Centre</option>
+
+<option value="145">Dr. Clement Officer -Medical Centre</option>
+
+<option value="59">Dr. Clive Anderson -Medical Centre</option>
+
+<option value="105">Dr. Clive McKenzie -Medical Centre</option>
+
+<option value="97">Dr. Dane Levy -Medical Center</option>
+
+<option value="88">Dr. Deborah Smith -Medical Centre</option>
+
+<option value="64">Dr. Dilini Chen -Medical Centre</option>
+
+<option value="104">Dr. Donnette Morris-Bryant -Medical Centre</option>
+
+<option value="131">Dr. Dwight McKenzie -Medical Centre</option>
+
+<option value="139">Dr. Ehis-Oje Areghan -Medical Centre</option>
+
+<option value="147">Dr. Evrich Watson -Medical Centre</option>
+
+<option value="138">Dr. Fielden Fairclough -Medical Centre</option>
+
+<option value="159">Dr. Gabriel Ukala -Medical Centre</option>
+
+<option value="154">Dr. Gagilla -Private</option>
+
+<option value="106">Dr. Garfield Chapman -Medical Centre</option>
+
+<option value="65">Dr. Geoffrey Barrow -Medical Centre</option>
+
+<option value="160">Dr. Horace Shaw -Medical Centre</option>
+
+<option value="93">Dr. Jean Williams Johnson -Medical Centre</option>
+
+<option value="111">Dr. Jeneen Jackson-Matthews -Medical Centre</option>
+
+<option value="132">Dr. Jepthroy Thompson -Medical Centre</option>
+
+<option value="149">Dr. Jessica Whyte-Lewis -Medical Centre</option>
+
+<option value="107">Dr. Jodine Tafari -Medical Centre</option>
+
+<option value="121">Dr. Kadiann  Pinnock -Medical Centre</option>
+
+<option value="146">Dr. Kamali Tulloch -Medical Centre</option>
+
+<option value="124">Dr. Kelly-Lois Gooden-Morgan -Medical Centre</option>
+
+<option value="98">Dr. Kevin Lawrence -Medical Centre</option>
+
+<option value="74">Dr. Kimberly Maragh -Medical Centre</option>
+
+<option value="73">Dr. Krystle Maragh -Medical Centre</option>
+
+<option value="151">Dr. Lincoln Wright -Medical Centre</option>
+
+<option value="148">Dr. Lisa McPherson -Medical Centre</option>
+
+<option value="130">Dr. Marcia Peart -Medical Centre</option>
+
+<option value="144">Dr. Mathew Bird -Medical Centre</option>
+
+<option value="109">Dr. Matthew O&#39;Connor -Medical Centre</option>
+
+<option value="71">Dr. Maxine Cargill -Medical Centre</option>
+
+<option value="125">Dr. Micas Campbell -Medical Centre</option>
+
+<option value="134">Dr. Michael Godfrey</option>
+
+<option value="103">Dr. Michael Godfrey -Medical Centre</option>
+
+<option value="123">Dr. Noelee Bowen -Medical Centre</option>
+
+<option value="136">Dr. Nyein Pye Phyo -Medical Centre</option>
+
+<option value="61">Dr. Orville Nembhard -Medical Centre</option>
+
+<option value="96">Dr. Otaniyenuwa Asemota -Medical Centre</option>
+
+<option value="83">Dr. Paul Auden -Medical Centre</option>
+
+<option value="62">Dr. Peter Figueroa -Medical Centre</option>
+
+<option value="75">Dr. Peter Swaby -Medical Centre</option>
+
+<option value="152">Dr. Powe -Private</option>
+
+<option value="135">Dr. Pyaesone Phyo -Medical Centre</option>
+
+<option value="114">Dr. Ravi Aavvaru -Medical Centre</option>
+
+<option value="142">Dr. Richard Watson -Medical Centre</option>
+
+<option value="66">Dr. Robb-Allen -Medical Center</option>
+
+<option value="76">Dr. Robert Hibbert -Medical Centre</option>
+
+<option value="116">Dr. Robert Palacio -Medical Centre</option>
+
+<option value="156">Dr. Robinson -Private</option>
+
+<option value="110">Dr. Rogelia Wallace  -Medical Centre</option>
+
+<option value="115">Dr. Rosemary King -Medical Centre</option>
+
+<option value="87">Dr. Russell Pierre -Medical Centre</option>
+
+<option value="133">Dr. Sabrina Spencer -Medical Centre</option>
+
+<option value="119">Dr. Sade Buchanan -Medical Centre (Online)</option>
+
+<option value="101">Dr. San Lwin -Medical Center</option>
+
+<option value="77">Dr. Seni Ononuju -Medical Centre</option>
+
+<option value="86">Dr. Siddian Brady-Brown -Medical Centre</option>
+
+<option value="102">Dr. Siddion Brady Brown</option>
+
+<option value="143">Dr. Sonali Thakurani -Medical Centre</option>
+
+<option value="158">Dr. Sonia Reid Ukala -Medical Centre</option>
+
+<option value="79">Dr. Sophia Carlis-Campbell -Medical Centre</option>
+
+<option value="126">Dr. Srivardhan Chilekampalli -Medical Centre</option>
+
+<option value="78">Dr. Suzanne Arscott -Medical Centre</option>
+
+<option value="69">Dr. Swane Gardener -Medical Centre</option>
+
+<option value="84">Dr. Tana Ricketts Roomes -Medical Centre</option>
+
+<option value="60">Dr. Tina Hylton-Kong -Medical Centre</option>
+
+<option value="120">Dr. Vanessa Hart -Medical Centre (Online)</option>
+
+<option value="150">Dr. Vijay Sunkara -Medical Centre</option>
+
+<option value="70">Dr. William Brown -Medical Centre</option>
+
+<option value="99">Dr. Yochel Samuels-Williams -Medical Centre</option>
+
+<option value="63">Dr. Yohann White -Medical Centre</option>
+
+<option value="94">Dr. Yolanda Hosang -Medical Centre</option>
+
+<option value="14">Duhaney Park Health Center</option>
+
+<option value="47">Duncans Health Centre</option>
+
+<option value="48">Falmouth Hospital</option>
+
+<option value="15">Fort Augusta - Adult</option>
+
+<option value="58">Greater Portmore Health Center</option>
+
+<option value="16">Hilltop Juvenile</option>
+
+<option value="17">Horizon Adult Remand Centre</option>
+
+<option value="18">JASL - Kingston</option>
+
+<option value="49">JASL - Montego Bay</option>
+
+<option value="3">JASL - St. Anns Bay</option>
+
+<option value="19">Kingston Public Hospital</option>
+
+<option value="20">Linstead Health Centre</option>
+
+<option value="137">Lionel Town Health Center</option>
+
+<option value="50">Lucea Health Centre</option>
+
+<option value="41">Mandeville Hospital</option>
+
+<option value="57">Mandeville Hospital - Antenatal</option>
+
+<option value="68">Mandeville - Peadiatrics</option>
+
+<option value="42">Mandeville Type 5 Health Centre</option>
+
+<option value="21">Maxfield Park Health Center</option>
+
+<option value="80">May Pen Antenatal</option>
+
+<option value="43">May Pen H/C - Adult</option>
+
+<option value="44">May Pen Hospital - Paediatric</option>
+
+<option value="22">Metcalfe Street Juvenile Remand Centre</option>
+
+<option value="51">Montego Bay Type 5 Health Centre</option>
+
+<option value="23">Morant Bay Health Centre - Adult</option>
+
+<option value="24">National Chest Hospital</option>
+
+<option value="25">New Broughton Sunset Rehabilitation</option>
+
+<option value="52">Noel Holmes Hospital</option>
+
+<option value="26">Old Harbour Health Centre</option>
+
+<option value="4">Port Antonio Health Center</option>
+
+<option value="5">Port Maria Health Center</option>
+
+<option value="27">Princess Margaret Hospital</option>
+
+<option value="28">Richmond Farm - Adult</option>
+
+<option value="29">Rio Cobre Juvenile</option>
+
+<option value="89">Sav-la-mar Health Center</option>
+
+<option value="53">Sav-la-mar Hospital</option>
+
+<option value="90">Sav la Mar Hospital - Peadiatrics</option>
+
+<option value="30">South Camp Juvenile</option>
+
+<option value="112">South Camp Road - Adult</option>
+
+<option value="56">Spanish Town Hospital - Antenatal</option>
+
+<option value="31">Spanish Town Hospital - Paediatric</option>
+
+<option value="55">St Ann Bay Hospital - Antenatal</option>
+
+<option value="7">St. Ann&#39;s Bay Health Center</option>
+
+<option value="6">St. Ann&#39;s Bay Hospital - Paediatric</option>
+
+<option value="32">St. Catherine Correctional Centre - Adult</option>
+
+<option value="91">St. Jago Park - Adolescent</option>
+
+<option value="33">St. Jago Park Health Centre</option>
+
+<option value="34">Tamarind Farm - Adult</option>
+
+<option value="35">Tower Street - Adult</option>
+
+<option value="36">University Hospital - Paediatric</option>
+
+<option value="37">Victoria Jubilee Hospital</option>
+
+<option value="38">Windward Road Health Centre</option>
+
+</select>
+                </div>
+                
+           
+           <div class="submit-container">
+              <button type="submit" class="btn btn-primary">Login</button>
+           </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </body>
+   
+  <div class="col-md-5"></div>
+
+
+</form>
+
+  {% endblock %}
