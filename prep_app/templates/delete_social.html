@@ -1,0 +1,10 @@
+<!-- client/delete_address.html -->
+
+<h1>Delete Address</h1>
+
+<p>Are you sure you want to delete the social info?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Delete</button>
+</form>

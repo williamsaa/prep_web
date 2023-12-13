@@ -1,0 +1,122 @@
+{% extends 'base_header3.html' %}
+
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+
+.btn1 {
+    width: 150px; /* Adjust this width as needed */
+}
+	
+</style>
+
+
+<div class="row">
+	<div class="col-md-4">
+	</div>
+	<div class="col-md-4"><h4>Reports</h4>
+	</div>
+	<div class="col-md-4">
+	</div>
+</div>
+
+
+
+<hr>
+
+<div class="row">
+	<div class="col-md-4">
+	</div>
+	<div class="col-md-4"><h5>Summary reports</h5>
+	</div>
+	<div class="col-md-4">
+	</div>
+</div>
+<div class="container-fluid">
+    
+	<div class="row">
+		<div class="col-md-1">
+            
+        </div>
+		<div class="col-md-3">
+            <button type="button" class="btn btn-primary">General population by Age group</button>
+        </div>
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary">General Population Disaggregation - MSP</button>
+
+		</div>
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary">General Population Disaggregation - HSTI</button>
+            
+		</div>
+		
+	</div>
+	<p></p>
+	<div class="row">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-3">
+			<button type="button" class="btn btn-primary">Key populations by Age groups</button>
+		</div>
+	
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary">General Population Disaggregation - SD
+			</button>
+
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+	<p></p>
+
+
+	<div class="row">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4"><h5>Detail reports</h5>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-1">
+
+
+		</div>
+		<div class="col-md-3">
+			<button type="button" class="btn btn-primary">Clients - Currently on PrEP
+			</button>
+		</div>
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary">Clients - Eligibile for PrEP - Not Started
+			</button>
+		</div>
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary">Clients - To be re-evaluated
+			</button>
+		</div>
+	</div>
+<p></p>
+	<div class="row">
+		<div class="col-md-1">
+
+
+		</div>
+		<div class="col-md-3">
+			<button type="button" class="btn btn-primary">Clients - To be re-evaluated
+			</button>
+		</div>
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary">Clients - 
+			</button>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+</div>
+
+{% endblock %}

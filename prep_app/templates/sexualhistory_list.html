@@ -1,0 +1,94 @@
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+
+<style>
+  #modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #modalContent {
+    width: 400px; 
+    height: 300px; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  #closeModalBtn {
+    margin-top: 10px;
+  }
+  </style>
+ <style>
+  .row {
+    margin-bottom: 5px; /* Adjust the value as needed */
+    margin-top: 5px; /* Adjust the value as needed */
+  }
+</style>
+</head>
+{% block content %}
+<!--bb-->
+
+
+
+
+<!--aa-->
+<div class="col-md-4">  <button onclick="popup2({{ client.id }})">Add New</button>  </div>
+<ul>
+  <b><div class="row h6">
+    <div class="col-md-2"> Date  </div>
+    <div class="col-md-3">   Last sexual encounter</div>
+    <div class="col-md-2">  Previous PrEP use </div>
+    <div class="col-md-5">  </div>
+  </div> </b>
+<hr>
+{% for sh in sexualhistory %}
+<div class="row h6">
+    <div class="col-md-2">  {{ sh.interview_date }}</div>
+    <div class="col-md-3">  {{ sh.last_sexual_encounter }}</div>
+    <div class="col-md-2">  {{ sh.previous_prep_use }}</div>
+
+    <div class="col-md-1"> <button onclick="popup({{ sh.id }})">Edit</button>  </div>
+    <div class="col-md-4">  </div>
+  </div> 
+  <hr>
+{% empty %}
+<p style="font-size:12px; "> No data found - Click <b>'Add New'</b> to create new record </p>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+<script>
+  function popup(shid) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'edit_sexualhistory' 0 %}".replace("0", shid);
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+  </script>
+
+  
+<script>
+  function popup2(ClientId) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'create_sexualhistory' client_id %}";
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+  </script>
+  

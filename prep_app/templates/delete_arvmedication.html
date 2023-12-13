@@ -1,0 +1,10 @@
+<!-- client/delete_arvmedication.html -->
+
+<h1>Delete ARV Medication</h1>
+
+<p>Are you sure you want to delete the ARV medication?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Delete</button>
+</form>

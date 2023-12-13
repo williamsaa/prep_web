@@ -1,0 +1,71 @@
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<style>
+  .row {
+    margin-bottom: 5px; /* Adjust the value as needed */
+  }
+</style>
+<div class="col-md-4">  <button onclick="popup2({{ client.id }})">Add New</button>  </div>
+
+<ul>
+  <b><div class="row">
+    <div class="col-md-2"> Report Date </div>
+    <div class="col-md-3">   Regimen</div>
+    <div class="col-md-2">   Duration</div>
+    <div class="col-md-2">  Due Date </div>
+    <div class="col-md-2"> Facility </div>
+    <div class="col-md-1">  </div>
+  </div> </b>
+<hr>
+{% for arvmedication in arvmedications %}
+<div class="row">
+    <div class="col-md-2">  {{ arvmedication.report_date }}</div>
+    <div class="col-md-3">  {{ arvmedication.regimen }}</div>
+    <div class="col-md-2">  {{ arvmedication.duration }}</div>   
+    <div class="col-md-2">  {{ arvmedication.due_date }}</div>
+    <div class="col-md-2">  {{ arvmedication.facility.name }}</div>
+    <div class="col-md-1"> <button onclick="popup({{ arvmedication.id }})">Edit</button>  </div>
+  </div> 
+  <hr>
+{% empty %}
+<div class="row">
+  <div class="col-md-6">
+    <p style="font-size:12px; "> No data found - Click <b>'Add New'</b> to create new record </p>
+  </div>
+  <div class="col-md-6"></div>
+</div>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+
+<script>
+  function popup(arvmedicationid) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'edit_arvmedication' 0 %}".replace("0", arvmedicationid);
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+</script>
+
+
+<script>
+  function popup2(ClientId) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'create_arvmedication' client_id %}";
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+  </script>
+  

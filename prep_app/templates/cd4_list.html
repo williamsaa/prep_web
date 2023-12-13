@@ -1,0 +1,92 @@
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+
+<style>
+  #modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #modalContent {
+    width: 400px; 
+    height: 300px; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  #closeModalBtn {
+    margin-top: 10px;
+  }
+  </style>
+</head>
+{% block content %}
+<!--bb-->
+
+
+
+
+<!--aavv-->
+
+
+<div class="col-md-4">  <button onclick="popup2({{ client.id }})">Add New</button>  </div>
+<ul>
+  <b><div class="row">
+    <div class="col-md-2"> Test date </div>
+    <div class="col-md-2">   CD4 result</div>
+    <div class="col-md-2">   Facility</div>
+    <div class="col-md-3">  Notes </div>
+    <div class="col-md-5">  </div>
+  </div> </b>
+<hr>
+{% for cd4 in cd4s %}
+<div class="row">
+    <div class="col-md-2">  {{ cd4.test_date  }}</div>
+    <div class="col-md-2">  {{ cd4.test_result  }}</div>
+    <div class="col-md-2">  {{ cd4.facility.name  }}</div>
+    <div class="col-md-3">  {{ cd4.notes  }}</div>
+    <div class="col-md-2"> <button onclick="popup({{ cd4.id }})">Edit</button>  </div>
+    <div class="col-md-3">  </div>
+  </div> 
+  <hr>
+{% empty %}
+<p style="font-size:12px; "> No data found - Click <b>'Add New'</b> to create new record </p>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+<script>
+  function popup(cd4Id) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'edit_cd4' 0 %}".replace("0", cd4Id);
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+</script>
+
+  
+<script>
+  function popup2(client_id) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'create_cd4count' client_id %}";
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+</script>
+  
+  

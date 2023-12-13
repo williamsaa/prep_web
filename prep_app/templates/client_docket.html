@@ -1,0 +1,12 @@
+<!-- client_docket.html -->
+<form method="post">
+    {% csrf_token %}
+    {{ client_form.as_p }} <!-- Render client form fields -->
+    <button type="submit">Submit Client Form</button>
+</form>
+
+<form method="post">
+    {% csrf_token %}
+    {{ docket_form.as_p }} <!-- Render docket form fields -->
+    <button type="submit">Submit Docket Form</button>
+</form>

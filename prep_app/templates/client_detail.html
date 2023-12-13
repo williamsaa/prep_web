@@ -1,0 +1,25 @@
+<!-- client/client_detail.html -->
+
+<h1>Client Detail</h1>
+
+<h3>Client Information:</h3>
+<p>Last Name: {{ client.last_name }}</p>
+<p>First Name: {{ client.first_name }}</p>
+<a href="{% url 'edit_client' client.id %}">(Edit)</a>
+<a href="{% url 'delete_client' client.id %}">(Delete)</a>
+
+<h3>Address Information:</h3>
+<ul>
+  {% for address in addresses %}
+  <li>
+    <p>Date at Address: {{ address.date_at_address }}</p>
+    <p>Street Name: {{ address.street_name }}</p>
+    <a href="{% url 'edit_address' address.id %}">(Edit)</a>
+  </li>
+  {% empty %}
+  <p style="font-size:12px; "> No data found - Click <b>'Add New'</b> to create new record </p>
+  {% endfor %}
+</ul>
+<!-- <a href="{% url 'create_address' client_id=client.id %}">Add Address</a>   -->
+
+

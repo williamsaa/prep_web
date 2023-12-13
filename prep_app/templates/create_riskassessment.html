@@ -1,0 +1,118 @@
+<!-- client/create_address.html -->
+
+  <!-- Your webpage content goes here -->
+  {% load widget_tweaks %}
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+  {% load crispy_forms_tags %}
+  
+  {% block content %}
+
+  <style>
+    h4 {
+        background-color: blue;
+        color: white;
+        padding: 3px;
+    }
+</style>
+
+<style>
+  .indent {
+      margin-left: 60px;
+      padding: 3px;
+
+  }
+</style>
+<h4>Add / Update Risk Assessment</h4>
+
+<form method="POST" class="card p-3 mt-5 form-floating form-horizontal form-group">
+
+  {% csrf_token %}
+  {{ form.media }} 
+    {{ form.risk_keypop_profile|as_crispy_field }}
+    <h4> Behaviour Risk Assessment</h4>
+    {{ form.sex_partner_hiv_positive|as_crispy_field }}
+
+    {{ form.sex_partner_hiv_positive_not_on_art|as_crispy_field }}
+    <div class="indent">
+
+    {{ form.sex_partner_hiv_positive_on_art_6months|as_crispy_field }}
+    {{ form.sex_partner_hiv_positive_suspected_poor_adherence_to_art|as_crispy_field }}
+    {{ form.sex_partner_hiv_positive_detectable_hiv_viral_load|as_crispy_field }}
+    {{ form.sex_partner_hiv_positive_couple_trying_to_conceive|as_crispy_field }}
+    </div>
+
+    {{ form.sex_partner_high_risk_and_hiv_status_unknown|as_crispy_field }}
+    {{ form.has_sex_with_multiple_partners|as_crispy_field }}
+    <h4> Other Risks</h4>
+
+    {{ form.ongoing_ipv_gbv|as_crispy_field }}
+    {{ form.transactional_sex|as_crispy_field }}
+    {{ form.recent_sti_6months|as_crispy_field }}
+    {{ form.recurrent_use_pep|as_crispy_field }}
+    {{ form.recurrent_sex_under_influence_of_alcohol_drugs|as_crispy_field }}
+    {{ form.inconsistent_or_no_condom_use|as_crispy_field }}
+    {{ form.shared_needles_or_syringes|as_crispy_field }}
+
+    <h4> Medical Assessment </h4>
+    {{ form.blood_pressure|as_crispy_field }}
+    {{ form.weight_kg|as_crispy_field }}
+    {{ form.height_cm|as_crispy_field }}
+    {{ form.signs_of_sti|as_crispy_field }}
+
+
+    {{ form.liver_disease_treatment|as_crispy_field }}
+    {{ form.kidney_disease_treatment|as_crispy_field }}
+    {{ form.chronic_illness_other|as_crispy_field }}
+
+    <p><b>Male only </b></p>
+    {{ form.male_circumcised|as_crispy_field }}
+
+    <p><b>Female only </b></p>
+
+    {{ form.lmp_date|as_crispy_field }}
+    {{ form.pregnant|as_crispy_field }}
+    {{ form.if_pregnant|as_crispy_field }}
+    {{ form.breast_feeding|as_crispy_field }}
+    {{ form.family_planning_female|as_crispy_field }}
+    {{ form.plan_to_have_children|as_crispy_field }}
+
+    {{ form.clinical_notes|as_crispy_field }}
+
+    <h4>PrEP Initiation</h4>
+    {{ form.hepatitis_b_results|as_crispy_field }}
+    {{ form.hepatitis_c_results|as_crispy_field }}
+    {{ form.serum_creatinine|as_crispy_field }}
+    {{ form.serum_creatinine_result|as_crispy_field }}
+
+    {{ form.prep_initiation_additional_steps|as_crispy_field }}
+
+
+    {{ form.previous_prep_use|as_crispy_field }}
+    {{ form.condoms_issued|as_crispy_field }}
+    {{ form.willing_to_start_prep|as_crispy_field }}
+    {{ form.adherence_counseling_done|as_crispy_field }}
+    {{ form.reason_not_will_to_start_prep|as_crispy_field }}
+
+    {{ form.signs_of_acute_hiv|as_crispy_field }}
+    {{ form.medically_ineligible_to_start_prep|as_crispy_field }}
+    {{ form.contraindications_for_TDF_FTC_TDF_3TC_TDF|as_crispy_field }}
+    {{ form.prescribed_prep_at_initial_visit|as_crispy_field }}
+    {{ form.prescribed_prep_at_initial_visit_regime|as_crispy_field }}
+    {{ form.prescribed_prep_at_initial_visit_regime_months_duration|as_crispy_field }}
+    {{ form.prescribed_prep_at_initial_visit_date_of_initiation|as_crispy_field }}
+
+
+    {{ form.your_date_field.errors }}
+
+  
+    <button type="submit" class="btn btn-primary" style="font-size: 20px;">Save</button> 
+    <button class="btn btn-info" style="font-size: 20px;"><a href="{% url 'close_window'  %}">Cancel</a></button>  
+    
+    
+ 
+ </form>
+
+{% endblock %}

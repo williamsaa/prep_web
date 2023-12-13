@@ -1,0 +1,86 @@
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+
+<style>
+  #modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #modalContent {
+    width: 400px; 
+    height: 300px; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  #closeModalBtn {
+    margin-top: 10px;
+  }
+  </style>
+</head>
+{% block content %}
+<!--bb-->
+<!--aa-->
+<div class="col-md-4">  <button onclick="popup2({{ client.id }})">Add New</button>  </div>
+<ul>
+  <b><div class="row">
+        <div class="col-md-2"> Clinic Date</div>
+        <div class="col-md-2">  Performed by </div>
+        <div class="col-md-3"> Facility </div>
+        <div class="col-md-2">  </div>
+        <div class="col-md-3">  </div>
+  </div> </b>
+<hr>
+{% for ris in risk %}
+<div class="row">
+    <div class="col-md-2">  {{ ris.date }}</div>
+    <div class="col-md-2">  {{ ris.performed_by }}</div>
+    <div class="col-md-3">  {{ ris.facility.name }}</div>
+    <div class="col-md-2"> <button onclick="popup({{ ris.id }})">Edit</button>  </div>
+    <div class="col-md-3">  </div>
+
+
+  </div> 
+  <hr>
+{% empty %}
+<p style="font-size:12px; "> No data found - Click <b>'Add New'</b> to create new record </p>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+<script>
+  function popup(soc_id) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'edit_risk' 0 %}".replace("0", soc_id);
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+  </script>
+  
+
+  <script>
+    function popup2(ClientId) {
+    var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+    var url = "{% url 'create_risk' client_id %}";
+    var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+  
+    newWindow.addEventListener('load', function() {
+      newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+  })};
+    </script>
+    

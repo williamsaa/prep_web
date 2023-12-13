@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+<head>
+  {% load widget_tweaks %}
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" integrity="sha384-y5b5HT5v%2Bj9kH%2F1b2JrK%2BsczBE%2FGZJqWE3nI6jAil9XyRrR1zJQrjEYr29IeZp" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
+  
+  <!-- Include jQuery and Bootstrap Datepicker JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js" integrity="sha384-cTzlw7oy8gjxRZsptUB2h4Fc4dmpX9y0lFaii7P%2BywQa7eZfy%2B6iVcPFvP8EM7V" crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<style>
+
+
+.nav-pills > .active > a, .nav-pills > .active > a:hover {
+    background-color: red;
+}
+  /* Style for the message box */
+  .hover-message {
+      position: relative;
+  }
+
+  .hover-message .message {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #f9f9f9;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+  }
+
+  .hover-message:hover .message {
+      display: block;
+  }
+</style>
+
+
+<style>
+  .navbar-light {
+      background-color: rgb(147, 218, 218) !important;
+      border: none !important;
+      border-width:0!important;
+  }
+  
+  
+  </style>
+
+
+    <div class="row">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+          <div class="container-fluid">
+              <a class="navbar-brand nav-link active" href="{% url 'client_list' %}">
+                  <h2>PrEP</h2>
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="mynavbar">
+                  <ul class="navbar-nav mr-auto"> <!-- Change "me-auto" to "mr-auto" -->
+                      <!-- Add your navigation items here -->
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'logout' %}">
+                              <button class="btn btn-primary" type="button">Logout</button>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'create_client' %}">
+                              <button class="btn btn-primary" type="button">Register New Client</button>
+                          </a>
+                      </li>
+
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'reports1' %}" >
+                           <button class="btn btn-primary" type="button">Reports</button>
+                        </a>
+                    </li>
+                      <!-- Add more navigation items as needed -->
+                  </ul>
+                  <form class="d-flex">
+                  
+                  <a class="navbar-brand nav-link active" href="{% url 'client_list' %}">
+                    <h4>Search for Client</h4>
+                </a>
+                </form>
+
+              </div>
+            </div>
+          </nav>
+          
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="nav navbar-light flex-column nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">{{  facilityname.name }}</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#"> </a>
+                  </li> <li class="nav-item">
+                    <a class="nav-link disabled" href="#"> </a>
+                </li> <li class="nav-item">
+                  <a class="nav-link disabled" href="#"> </a>
+              </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled"></a>
+                    </li>
+
+                  <H5> 
+                    
+                    <li class="nav-item">
+                        <a class="nav-link nav-pills" id="show_registration" href="#">Registration</a>
+                        
+                    </li>
+<!-- dropdown start -->
+
+
+  <!-- dropdown ends-->
+                    <li class="nav-item">
+                        <a class="nav-link nav-pills" id="show_prepstatus" <a href="#" onclick="openPrepStatusList(event, {{ client.id }})">PrEP Status</a>
+                   </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-pills" id="show_demographics" <a href="#" onclick="openDemographicsList(event, {{ client.id }})">Demographics</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="show_physicalexam" href="#"> </a>
+                    <li class="nav-item">
+                        <a class="nav-link" id="show_laboratory" href="#">Laboratory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="show_medications" href="#">Medication</a>
+                    </li>
+                   
+                    
+                  </H5>
+                    <li class="nav-item">
+                      <a class="nav-link " href="#"> </a>
+                    </li> <li class="nav-item">
+                    <a class="nav-link " href="#"> </a>
+                   </li> <li class="nav-item">
+                     <a class="nav-link " href="#"> </a>
+                  </li> <li class="nav-item">
+                    <a class="nav-link " href="#"> </a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link " href="#"> </a>
+                  </li>
+                </ul>
+            </div>
+
+
+            <div class="col-md-10">
+
+              
+            <!-- Start - HIDE/SEEK MultiSelect Tabs for demographics, lab, meds etc-->
+            
+        
+
+            <!-- Start - HIDE/SEEK MultiSelect Tabs for demographics, lab, meds etc-->
+                <body>
+                    {% block content %}
+                    {% endblock %}
+                  
+         <!--         
+                  
+-->
+            <!-- tabs -->
+            <nav id="physicalexam">
+              <h4 style="background-color:powderblue;">Physical Exam</h4>
+
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link " id="nav-physicalexam-tab" data-bs-toggle="tab" data-bs-target="#nav-physicalexam" type="button" role="tab" aria-controls="nav-physicalexam" aria-selected="true"><a href="#" onclick="openPhysicalExamList(event, {{ client.id }})">Physical Exam</a></button>
+               
+            </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show " id="nav-physicalexam" role="tabpanel" aria-labelledby="nav-physicalexam-tab">
+                <div id="pe-physicalexam"> 
+                <div id="physicalexam-list-container">
+              </div></div>
+            </div>
+         </div>
+
+         <nav id="prepstatus">
+          <h4 style="background-color:powderblue;">PrEP Status</h4>
+
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link " id="nav-sexualhistory-tab" data-bs-toggle="tab" data-bs-target="#nav-sexualhistory" type="button" role="tab" aria-controls="nav-sexualhistory" aria-selected="true"><a href="#" onclick="openSexualHistoryList(event, {{ client.id }})">Sexual History</a></button>
+            <button class="nav-link " id="nav-prepstatus-tab" data-bs-toggle="tab" data-bs-target="#nav-prepstatus" type="button" role="tab" aria-controls="nav-prepstatus" aria-selected="true"><a href="#" onclick="openPrepStatusList(event, {{ client.id }})">PrEP Status</a></button>
+           <!-- <button class="nav-link " id="nav-riskassessment-tab" data-bs-toggle="tab" data-bs-target="#nav-riskassessment" type="button" role="tab" aria-controls="nav-riskassessment" aria-selected="true"><a href="#" onclick="openRiskAssessmentList(event, {{ client.id }})"> Risk Assessment</a></button> -->
+            <button class="nav-link " id="nav-eligibility-tab" data-bs-toggle="tab" data-bs-target="#nav-eligibility" type="button" role="tab" aria-controls="nav-eligibility" aria-selected="true"><a href="#" onclick="openEligibilityList(event, {{ client.id }})">Eligibility Screening</a></button>
+
+        </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show " id="nav-sexualhistory" role="tabpanel" aria-labelledby="nav-sexualhistory-tab">
+            <div id="pe-sexualhistory"> 
+            <div id="sexualhistory-list-container">
+          </div></div>
+        </div>
+
+
+
+          <div class="tab-pane fade show " id="nav-prepstatus" role="tabpanel" aria-labelledby="nav-prepstatus-tab">
+            <div id="pe-prepstatus"> 
+            <div id="prepstatus-list-container">
+          </div></div>
+        </div>
+     
+      <div class="tab-pane fade show " id="nav-eligibility" role="tabpanel" aria-labelledby="nav-eligibility-tab">
+        <div id="pe-eligibility"> 
+        <div id="eligibility-list-container">
+      </div></div>
+    </div>
+
+  <div class="tab-pane fade show " id="nav-riskassessment" role="tabpanel" aria-labelledby="nav-riskassessment-tab">
+    <div id="pe-riskassessment"> 
+    <div id="riskassessment-list-container">
+  </div></div>
+</div>
+
+            <nav id="registration">
+              <h4 style="background-color:powderblue;">Registration</h4>
+
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link " id="nav-outofcare-tab" data-bs-toggle="tab" data-bs-target="#nav-outofcare" type="button" role="tab" aria-controls="nav-outofcare" aria-selected="true"><a href="#" onclick="openOutOfCareStatusList(event, {{ client.id }})">Out of Case Status</a></button>
+                <button class="nav-link" id="nav-sitedocket-tab" data-bs-toggle="tab" data-bs-target="#nav-sitedocket" type="button" role="tab" aria-controls="nav-sitedocket" aria-selected="false"><a href="#" onclick="openDocketList(event, {{ client.id }})">Site Docket</a></button>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show " id="nav-outofcare" role="tabpanel" aria-labelledby="nav-outofcare-tab">
+                <div id="reg-outofcare"> 
+                  <div id="outofcarestatus-list-container">
+                  </div>
+
+                </div></div>
+
+
+              <div class="tab-pane fade" id="nav-sitedocket" role="tabpanel" aria-labelledby="nav-sitedocket-tab">
+                <div id="reg-sitedockets">
+                  <div id="docket-list-container">
+                  </div>
+                </div>         
+            </div>
+              
+
+
+
+              <div class="tab-pane fade" id="nav-transfers" role="tabpanel" aria-labelledby="nav-transfers-tab"><div id="reg-transfers"> .reg ccc..</div></div>
+            </div>
+
+                  <nav id="demographics">
+                    <h4 style="background-color:powderblue;">Demographics</h4>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <button class="nav-link " id="nav-address-tab" data-bs-toggle="tab" data-bs-target="#nav-address" type="button" role="tab" aria-controls="nav-address" aria-selected="true"><a href="#" onclick="openAddressList(event, {{ client.id }})">Addresses</a></button>
+                      <button class="nav-link" id="nav-nok-tab" data-bs-toggle="tab" data-bs-target="#nav-nok" type="button" role="tab" aria-controls="nav-nok" aria-selected="false"><a href="#" onclick="openEmergencyContactList(event, {{ client.id }})">Emergency Contacts</a></button>
+                      <button class="nav-link" id="nav-risk-tab" data-bs-toggle="tab" data-bs-target="#nav-risk" type="button" role="tab" aria-controls="nav-risk" aria-selected="false"><a href="#" onclick="openRiskHistoryList(event, {{ client.id }})">Risk History</a></button>
+                      <button class="nav-link" id="nav-social-tab" data-bs-toggle="tab" data-bs-target="#nav-social" type="button" role="tab" aria-controls="nav-soocial" aria-selected="false"><a href="#" onclick="openSocialList(event, {{ client.id }})">Social History</a></button>
+
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show " id="nav-address" role="tabpanel"   aria-labelledby="nav-address-tab">
+                      <div id="demo-address">                     
+                      <div id="address-list-container">
+                          </div>
+                          
+                      </div> 
+                     </div>
+                    <div class="tab-pane fade" id="nav-nok" role="tabpanel" aria-labelledby="nav-nok-tab">
+                        <div id="demo-nok">
+                          <div id="nok-list-container">
+                          </div>
+                        </div></div>
+                    <div class="tab-pane fade" id="nav-risk" role="tabpanel" aria-labelledby="nav-risk-tab">
+                        <div id="demo-risk">
+                          <div id="risk-list-container">
+                          </div>
+
+                      </div></div>
+
+                    <div class="tab-pane fade" id="nav-social" role="tabpanel" aria-labelledby="nav-social-tab">
+                      <div id="demo-social">
+                        <div id="social-list-container">
+                        </div>
+                      </div></div>
+                  
+
+                  <nav id="laboratory">
+                    <h4 style="background-color:powderblue;">Laboratory</h4>
+
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <button class="nav-link" id="nav-viralload-tab" data-bs-toggle="tab" data-bs-target="#nav-viralload" type="button" role="tab" aria-controls="nav-viralload" aria-selected="false"><a href="#" onclick="openViralloadList(event, {{ client.id }})">Viral Load</a></button>
+                      <button class="nav-link " id="nav-sti-tab" data-bs-toggle="tab" data-bs-target="#nav-sti" type="button" role="tab" aria-controls="nav-sti" aria-selected="true"><a href="#" onclick="openSTIList(event, {{ client.id }})">STI</a></button>
+                      <button class="nav-link " id="nav-liverkidney-tab" data-bs-toggle="tab" data-bs-target="#nav-liverkidney" type="button" role="tab" aria-controls="nav-liverkidney" aria-selected="true"><a href="#" onclick="openLiverKidneyList(event, {{ client.id }})">Liver/Kidney</a></button>
+
+                      <!-- <button class="nav-link" id="nav-othertests-tab" data-bs-toggle="tab" data-bs-target="#nav-othertests" type="button" role="tab" aria-controls="nav-othertests" aria-selected="false"><a href="#" onclick="openOtherTestsList(event, {{ client.id }})">Other Tests</a></button> -->
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                      <div class="tab-pane fade" id="nav-sti" role="tabpanel" aria-labelledby="nav-sti-tab">
+                        <div id="lab-sti">
+                          <div id="sti-list-container">
+                          </div>
+                      </div>  
+                    </div>                     
+                      <div class="tab-pane fade" id="nav-viralload" role="tabpanel" aria-labelledby="nav-viralload-tab">
+                        <div id="lab-viralload">
+                          <div id="viralload-list-container">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="tab-pane fade" id="nav-othertests" role="tabpanel" aria-labelledby="nav-othertests-tab">
+                        <div id="lab-othertests">
+                          <div id="otherlab-list-container">
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-liverkidney" role="tabpanel" aria-labelledby="nav-liverkidney-tab">
+                      <div id="lab-liverkidney">
+                        <div id="liverkidney-list-container">
+                        </div>
+                    </div>
+                  </div>
+
+                  </div>
+
+                  <nav id="medications">
+                    <h4 style="background-color:powderblue;">Medications</h4>
+
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <button class="nav-link " id="nav-arv-tab" data-bs-toggle="tab" data-bs-target="#nav-arv" type="button" role="tab" aria-controls="nav-arv" aria-selected="true"><a href="#" onclick="openARVMedicationList(event, {{ client.id }})">PrEP</a></button>
+                      <button class="nav-link" id="nav-othermeds-tab" data-bs-toggle="tab" data-bs-target="#nav-othermeds" type="button" role="tab" aria-controls="nav-othermeds" aria-selected="false"></button>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show " id="nav-arv" role="tabpanel" aria-labelledby="nav-arv-tab">
+                      <div id="med-arv">
+                        <div id="arvmedication-list-container">
+                        </div>
+
+                    </div></div>
+                    <div class="tab-pane fade" id="nav-othermeds" role="tabpanel" aria-labelledby="nav-othermeds-tab"><div id="med-othermeds"></div></div>
+                  </div>
+          </body>
+      
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <script>
+      $(document).ready(function() {
+          // hide all the divs initially
+          $("#demographics, #laboratory, #medications, #registration, #physicalexam, #prepstatus").addClass("d-none");
+        
+          // show/hide the divs based on user clicks
+          $("#show_demographics").click(function() {
+            $("#demographics").removeClass("d-none");
+            $("#reg-outofcare, #reg-sitedockets, #reg-transfer").addClass("d-none");
+            $("#demo-address, #demo-nok, #demo-risk, #demo-social").removeClass("d-none");
+            $("#lab-cd4, #lab-viralload, #lab-othertests, #lab-sti").addClass("d-none");
+            $("#med-arv, #med-othermeds").addClass("d-none");
+            $("#pe-physicalexam").addClass("d-none");
+            $("#pe-prepstatus").addClass("d-none");
+            $("#pe-riskassessment").addClass("d-none");
+            $("#pe-eligibility").addClass("d-none");
+            $("#pe-sexualhistory").addClass("d-none");
+            
+
+            $("#laboratory, #medications, #registration, #physicalexam, #prepstatus").addClass("d-none");
+            $("#physicalexam").addClass("d-none");
+          });
+        
+          $("#show_laboratory").click(function() {
+            $("#laboratory").removeClass("d-none");
+            $("#reg-outofcare, #reg-sitedockets, #reg-transfer").addClass("d-none");
+            $("#demo-address, #demo-nok, #demo-risk, #demo-social").addClass("d-none");
+            $("#lab-cd4, #lab-viralload, #lab-othertests, #lab-sti").removeClass("d-none");
+            $("#med-arv, #med-othermeds").addClass("d-none");
+            $("#pe-physicalexam").addClass("d-none");
+            $("#pe-prepstatus").addClass("d-none");
+            $("#pe-riskassessment").addClass("d-none");
+            $("#pe-eligibility").addClass("d-none");
+            $("#pe-sexualhistory").addClass("d-none");
+
+            $("#demographics, #medications, #registration, #physicalexam, #prepstatus").addClass("d-none"); 
+            $("#physicalexam").addClass("d-none");
+          });
+        
+          $("#show_medications").click(function() {
+            $("#medications").removeClass("d-none");
+            $("#lab-cd4, #lab-viralload, #lab-othertests, #lab-sti").addClass("d-none");
+            $("#reg-outofcare, #reg-sitedockets, #reg-transfer").addClass("d-none");
+            $("#demo-address, #demo-nok, #demo-risk, #demo-social").addClass("d-none");
+            $("#med-arv, #med-othermeds").removeClass("d-none");
+            $("#pe-prepstatus").addClass("d-none");
+            $("#pe-riskassessment").addClass("d-none");
+            $("#pe-eligibility").addClass("d-none");
+            $("#pe-sexualhistory").addClass("d-none");
+
+            $("#demographics, #laboratory, #registration, #physicalexam, #prepstatus").addClass("d-none");
+            $("#pe-physicalexam").addClass("d-none");
+          });
+
+          $("#show_prepstatus").click(function() {
+            $("#prepstatus").removeClass("d-none");
+            $("#pe-eligibility").removeClass("d-none");
+            $("#pe-riskassessment").removeClass("d-none");
+            $("#pe-prepstatus").removeClass("d-none");
+            $("#pe-sexualhistory").removeClass("d-none");
+
+            $("#lab-cd4, #lab-viralload, #lab-othertests, #lab-sti").addClass("d-none");
+            $("#reg-outofcare, #reg-sitedockets, #reg-transfer").addClass("d-none");
+            $("#demo-address, #demo-nok, #demo-risk, #demo-social").addClass("d-none");
+            $("#med-arv, #med-othermeds").addClass("d-none");
+            $("#pe-physicalexam").addClass("d-none");
+
+            $("#demographics, #laboratory, #registration, #medications, #physicalexam").addClass("d-none");
+          });
+
+
+          $("#show_physicalexam").click(function() {
+            $("#physicalexam").removeClass("d-none");
+            $("#lab-cd4, #lab-viralload, #lab-othertests, #lab-sti").addClass("d-none");
+            $("#reg-outofcare, #reg-sitedockets, #reg-transfer").addClass("d-none");
+            $("#demo-address, #demo-nok, #demo-risk, #demo-social").addClass("d-none");
+            $("#med-arv, #med-othermeds").addClass("d-none");
+            $("#pe-physicalexam").removeClass("d-none");
+            $("#pe-prepstatus").addClass("d-none");
+            $("#pe-riskassessment").addClass("d-none");
+            $("#pe-eligibility").addClass("d-none");
+            $("#pe-sexualhistory").addClass("d-none");
+
+            $("#demographics, #laboratory, #registration, #medications, #prepstatus").addClass("d-none");
+          });
+        
+          $("#show_registration").click(function() {
+            $("#registration").removeClass("d-none");
+
+            $("#demo-address, #demo-nok, #demo-risk, #demo-social").addClass("d-none");
+            $("#lab-cd4, #lab-viralload, #lab-othertests, #lab-sti").addClass("d-none");
+            $("#med-arv, #med-othermeds").addClass("d-none");
+            $("#pe-physicalexam").addClass("d-none");
+            $("#physicalexam").addClass("d-none");
+            $("#pe-prepstatus").addClass("d-none");
+            $("#pe-riskassessment").addClass("d-none");
+            $("#pe-eligibility").addClass("d-none");
+            $("#pe-sexualhistory").addClass("d-none");
+
+            $("#reg-outofcare, #reg-sitedockets, #reg-transfer").removeClass("d-none");
+
+            $("#demographics, #laboratory, #medications, #physicalexam, #prepstatus").addClass("d-none");
+
+          });
+        });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function openAddressList(event, clientId) {
+  event.preventDefault(); // Prevent the default link behavior
+
+  // AJAX request to fetch the address list content
+  $.ajax({
+    url: "/client/address_list/" + clientId + "/",
+    success: function(data) {
+      // Update the content of a specific section with the fetched data
+      $("#address-list-container").html(data);
+    }
+  });
+}
+</script>
+      
+<script>
+  function openARVMedicationList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the address list content
+    $.ajax({
+      url: "/client/arvmedication_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#arvmedication-list-container").html(data);
+      }
+    });
+  }
+  </script>
+
+        
+<script>
+  function openSTIList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the address list content
+    $.ajax({
+      url: "/client/sti_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#sti-list-container").html(data);
+      }
+    });
+  }
+  </script>
+
+<script>
+  function openViralloadList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the vl list content
+    $.ajax({
+      url: "/client/viralload_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#viralload-list-container").html(data);
+      }
+    });
+  }
+  </script>
+
+    
+  <script>
+    function openSocialList(event, clientId) {
+      event.preventDefault(); // Prevent the default link behavior
+    
+      // AJAX request to fetch the address list content
+      $.ajax({
+        url: "/client/social_list/" + clientId + "/",
+        success: function(data) {
+          // Update the content of a specific section with the fetched data
+          $("#social-list-container").html(data);
+        }
+      });
+    }
+    </script>
+
+    <script>
+      function openRiskHistoryList(event, clientId) {
+        event.preventDefault(); // Prevent the default link behavior
+      
+        // AJAX request to fetch the address list content
+        $.ajax({
+          url: "/client/risk_list/" + clientId + "/",
+          success: function(data) {
+            // Update the content of a specific section with the fetched data
+            $("#risk-list-container").html(data);
+          }
+        });
+      }
+      </script>
+  
+
+<script>
+  function openPhysicalExamList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the vl list content
+    $.ajax({
+      url: "/client/physicalexam_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#physicalexam-list-container").html(data);
+      }
+    });
+  }
+  </script>
+
+  
+<script>
+  function openDocketList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the vl list content
+    $.ajax({
+      url: "/client/docketnew_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#docket-list-container").html(data);
+      }
+    });
+  }
+  </script>
+
+
+<script>
+  function openOutOfCareStatusList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the vl list content
+    $.ajax({
+      url: "/client/outofcarestatus_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#outofcarestatus-list-container").html(data);
+      }
+    });
+  }
+  </script>
+  
+<script>
+  function openPrepStatusList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the vl list content
+    $.ajax({
+      url: "/client/prepstatus_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#prepstatus-list-container").html(data);
+      }
+    });
+  }
+  </script>
+
+
+
+  <script>
+    function openRiskAssessmentList(event, clientId) {
+      event.preventDefault(); // Prevent the default link behavior
+    
+      // AJAX request to fetch the vl list content
+      $.ajax({
+        url: "/client/riskassessment_list/" + clientId + "/",
+        success: function(data) {
+          // Update the content of a specific section with the fetched data
+          $("#riskassessment-list-container").html(data);
+        }
+      });
+    }
+    </script>
+
+   
+  <script>
+    function openEligibilityList(event, clientId) {
+      event.preventDefault(); // Prevent the default link behavior
+    
+      // AJAX request to fetch the vl list content
+      $.ajax({  
+        url: "/client/prepeligibility_list/" + clientId + "/",
+        success: function(data) {
+          // Update the content of a specific section with the fetched data
+          $("#eligibility-list-container").html(data);
+        }
+      });
+    }
+    </script> 
+
+
+<script>
+  function openSexualHistoryList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the vl list content
+    $.ajax({  
+      url: "/client/sexualhistory_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#sexualhistory-list-container").html(data);
+      }
+    });
+  }
+  </script> 
+
+
+<script>
+  function openLiverKidneyList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the vl list content
+    $.ajax({  
+      url: "/client/liverkidney_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#liverkidney-list-container").html(data);
+      }
+    });
+  }
+  </script> 
+
+
+<script>
+  function openEmergencyContactList(event, clientId) {
+    event.preventDefault(); // Prevent the default link behavior
+  
+    // AJAX request to fetch the vl list content
+    $.ajax({  
+      url: "/client/emergencycontact_list/" + clientId + "/",
+      success: function(data) {
+        // Update the content of a specific section with the fetched data
+        $("#nok-list-container").html(data);
+      }
+    });
+  }
+  </script> 
+
+
+
+
+</html>

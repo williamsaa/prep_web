@@ -1,0 +1,61 @@
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+
+<head>
+
+
+</head>
+{% block content %}
+
+<div class="col-md-4">  <button onclick="popup2({{ client.id }})">Add New</button>  </div>
+<ul>
+  <b><div class="row">
+    <div class="col-md-2"> Date Registered </div>
+    <div class="col-md-2"> Docket Number</div>
+    <div class="col-md-3"> Facility</div>
+    <div class="col-md-5">  </div>
+  </div> </b>
+<hr>
+{% for d in docket %}
+<div class="row">
+    <div class="col-md-2">  {{ d.date_created  }}</div>
+    <div class="col-md-2">  {{ d.docket_no  }}</div>
+    <div class="col-md-3">  {{ d.facility.name  }}</div>
+    <div class="col-md-2"> <button onclick="popup({{ d.id }})">Edit</button>  </div>
+    <div class="col-md-3">  </div>
+  </div> 
+  <hr>
+{% empty %}
+<p style="font-size:12px; "> No data found - Click <b>'Add New'</b> to create new record </p>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+<script>
+  function popup(did) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'edit_docket' 0 %}".replace("0", did);
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+</script>
+
+
+<script>
+  function popup2(client_id) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'create_docket' client_id %}";
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+</script>
+  
+  

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block content %}
+<style>
+  /* Add a custom class to reduce spacing between rows in the loop */
+  .clr {
+    font-size:12px; /* Adjust this value as needed */
+  }
+
+  .clrh {
+    font-size:14px; /* Adjust this value as needed */
+    font-weight: bold;
+  }
+</style>
+
+<div class="row"> 
+  <div class="col-md-1">   </div> 
+  <div class="col-md-3">   </div> 
+  <div class="col-md-3">   </div>
+  <div class="col-md-3">   <a href="{% url 'create_client' %}"></button></a> </div> 
+  <div class="col-md-2">   </div>
+</div>
+
+
+<div class="row"> 
+  <div class="col-md-1">   </div> 
+  <div class="col-md-2">  Last name</div>
+  <div class="col-md-1">  First name </div>
+  <div class="col-md-1">  Pet name </div>
+  <div class="col-md-1">  Middle name </div>
+  <div class="col-md-1">  Date of birth </div>
+  <div class="col-md-1">  Mother Lastname </div>
+  <div class="col-md-1">  Mother Firstname </div>
+  <div class="col-md-1">  Docket </div>    
+  <div class="col-md-2">  Facility </div>    
+  
+
+</div>
+<hr>
+  {% for x in clients %}
+  <div class="row clr"> 
+    <div class="col-md-1">   </div> 
+    <div class="col-md-2"> <a href="{% url 'edit_client' x.id %}">{{ x.last_name }}</a>  </div>
+    
+    <div class="col-md-1">  {{ x.first_name }}</div>
+    <div class="col-md-1">  {{ x.pet_name }}</div>
+    <div class="col-md-1">  {{ x.middle_name }}</div>
+    <div class="col-md-1">  {{ x.date_of_birth }}</div>
+    <div class="col-md-1">  {{ x.mother_last_name }}</div>
+    <div class="col-md-1">  {{ x.mother_first_name }}</div>
+    <div class="col-md-1">  {% for docket in x.docket_new_set.all %}
+                                {{ docket.docket_no }}<br>
+                            {% endfor %}</div> 
+    <div class="col-md-2">  {% for docket in x.docket_new_set.all %}
+                                {{ docket.facility }}<br>
+                            {% endfor %}</div>
+ 
+  </div>  
+  <hr>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}
+
+
+

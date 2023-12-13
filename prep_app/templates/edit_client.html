@@ -1,0 +1,97 @@
+{% extends 'base_entry.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+
+
+<style>
+
+input[type=text] {
+  width: 100%;
+  padding: 5px 5px;
+  margin-top: 0px ;
+  box-sizing: border-box;
+}
+
+label {
+  margin-bottom: 5px; /* Adjust the margin as needed */
+}
+
+</style>
+
+<div class="container">
+
+<form method="POST" class="card mt-0 form-floating form-horizontal form-group">
+  <div class="row">
+    <div class="col-md-3"><b>Edit / Update Client</b>
+    </div>
+    <div class="col-md-6"> </div>
+    <div class="col-md-3">    <button type="submit" class="btn btn-primary" style="font-size: 20px;">Save Form</button> </div>
+  </div>
+  {% csrf_token %}
+  {{ form.media }} 
+  {{ form.your_date_field.errors }}
+  <div class="row">
+    <div class="col-md-3"><b>Unique Identifier Code</b>
+    </div>
+    <div class="col-md-6">{{ form.unique_identfier_code }} </div>
+    <div class="col-md-3">     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3"> <b>{{ form.last_name|as_crispy_field }}</b></div>
+    <div class="col-md-3"> <b>{{ form.first_name|as_crispy_field}}</b></div>
+    <div class="col-md-3"> {{ form.middle_name|as_crispy_field}}</div>
+    <div class="col-md-3"> {{ form.pet_name|as_crispy_field}}</div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3"> {{ form.sex_at_birth|as_crispy_field }}</div>
+    <div class="col-md-3"> {{ form.date_of_birth|as_crispy_field }}     </div>
+    <div class="col-md-3"> {{ form.marital_status|as_crispy_field}}</div>
+    <div class="col-md-3"> {{ form.current_gender|as_crispy_field}} </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3"> {{ form.mother_last_name|as_crispy_field}}</div>
+    <div class="col-md-3"> {{ form.mother_first_name|as_crispy_field}}</div>
+    <div class="col-md-3"> {{ form.father_last_name|as_crispy_field}}</div>
+    <div class="col-md-3"> {{ form.father_first_name|as_crispy_field}}</div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-md-3"> {{ form.trn_number|as_crispy_field}}</div>
+    <div class="col-md-7"> </div>
+    <div class="col-md-2">    <button type="submit" class="btn btn-primary" style="font-size: 20px;">Save Form</button> </div>
+  </div> -->
+        
+        </div>
+        {{ form.your_date_field.errors }}
+    </form>
+
+
+<script>
+  $(document).ready(function() {
+    $('.datepicker').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      todayHighlight: true,
+      endDate: '-1d' 
+    });
+    $('input[data-date-format]').each(function() {
+      $(this).datepicker('setDate', $(this).val());
+    });
+  });
+</script>
+{% endblock %}
+
+<!-- client/edit_client.html -->
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+    {{ form.your_date_field.errors }}
+  </form>
+  

@@ -1,0 +1,35 @@
+
+
+  <!-- Your webpage content goes here -->
+  {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.css' %}">
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+
+
+  {% load widget_tweaks %}
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+  {% load crispy_forms_tags %}
+  
+  {% block content %}
+ 
+
+<h4>Add / Update Address</h4>
+
+<form method="POST" class="card p-3 mt-5 form-floating form-horizontal form-group">
+
+  {% csrf_token %}
+  {{ form.media }} 
+  {{ form|crispy}}
+  {{ form.your_date_field.errors }}
+
+  <button type="submit" class="btn btn-primary" style="font-size: 20px;">Save</button> 
+  <button class="btn btn-info" style="font-size: 20px;"><a href="{% url 'close_window'  %}">Cancel</a></button>  
+  
+  
+
+ </form>
+
+{% endblock %}

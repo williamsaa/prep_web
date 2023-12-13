@@ -1,0 +1,90 @@
+{% load widget_tweaks %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+
+<style>
+  #modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #modalContent {
+    width: 400px; 
+    height: 300px; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  #closeModalBtn {
+    margin-top: 10px;
+  }
+  </style>
+</head>
+{% block content %}
+<!--bb-->
+
+<!--aa-->
+
+<button onclick="popup_create({{ client.id }})">Add New Physical exam</button>  </div>
+<ul>
+  <b><div class="row">
+        <div class="col-md-2"> Clinic Date</div>
+        <div class="col-md-2">  Examined By </div>
+        <div class="col-md-3"> Facility </div>
+        
+        <div class="col-md-5">  </div>
+  </div> </b>
+<hr>
+{% for pe in physicalexam %}
+<div class="row">
+    <div class="col-md-2">  {{ pe.clinic_date }}</div>
+    <div class="col-md-2">  {{ pe.examined_by }}</div>
+    <div class="col-md-3">  {{ pe.facility.name }}</div>
+    <div class="col-md-1"> <button onclick="popup({{ pe.id }})">Edit</button>  </div>
+    <div class="col-md-4">  </div>
+
+  </div> 
+  <hr>
+{% empty %}
+<div class="row">
+  <div class="col-md-6">
+  <h3 style="background-color: aqua;">  No P/E found</h3>
+  </div>
+  <div class="col-md-6"></div>
+</div>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+<script>
+  function popup(pe_id) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'edit_physicalexam' 0 %}".replace("0", pe_id);
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+</script>
+
+<script>
+  function popup_create(client_id) {
+  var windowFeatures = 'height=600,width=700,left=400,top=100,scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no';
+  var url = "{% url 'create_physicalexam' client_id %}";
+  var newWindow = window.open(url, 'popUpWindow', windowFeatures);
+
+  newWindow.addEventListener('load', function() {
+    newWindow.document.body.style.backgroundColor = 'gray'; // Change the background color to red
+})};
+</script>
