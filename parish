@@ -1,0 +1,4 @@
+SELECT id,
+       name,
+       code
+  FROM prep_app_regioncode;
