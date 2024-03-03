@@ -117,6 +117,9 @@ PYDEVD_DISABLE_FILE_VALIDATION=1
 SESSION_ENGINE  = 'django.contrib.sessions.backends.db'
 
 SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+#CSRF_TRUSTED_ORIGINS = ["https://prep.moh.gov.jm"]
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
