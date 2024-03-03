@@ -37,4 +37,4 @@ def login_user(request):
             messages.success(request,'Username or password or site selected is incorrect')
             return redirect ('login_user')    
             
-    return render(request, 'authentication\login.html')
+    return render(request, 'authentication/login.html')
